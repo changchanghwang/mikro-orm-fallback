@@ -1,0 +1,21 @@
+{
+  "name": "mk-test",
+  "type": "module",
+  "private": true,
+  "description": "Minimal reproduction for MikroORM Bun ES decorator path discovery bug",
+  "scripts": {
+    "start": "bun run src/app.ts",
+    "dev": "bun run --watch src/app.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@mikro-orm/core": "^7.0.4",
+    "@mikro-orm/decorators": "^7.0.4",
+    "@mikro-orm/mysql": "^7.0.4",
+    "@mikro-orm/reflection": "^7.0.4"
+  }
+}
