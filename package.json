@@ -16,9 +16,9 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@mikro-orm/core": "^7.0.4",
-    "@mikro-orm/decorators": "^7.0.4",
-    "@mikro-orm/mysql": "^7.0.4",
-    "@mikro-orm/reflection": "^7.0.4"
+    "@mikro-orm/core": "^7.0.5",
+    "@mikro-orm/decorators": "^7.0.5",
+    "@mikro-orm/mysql": "^7.0.5",
+    "@mikro-orm/reflection": "^7.0.5"
   }
 }
