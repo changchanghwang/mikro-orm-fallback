@@ -1,91 +1,38 @@
-# MikroORM Bun Repro
+# MikroORM TsMorph inherited property issue
 
-Minimal reproduction for a MikroORM v7 path discovery failure under:
+Minimal repo for a MikroORM v7 `TsMorphMetadataProvider` issue.
 
-- Bun direct TypeScript execution
-- ES decorators from `@mikro-orm/decorators/es`
-- `TsMorphMetadataProvider`
+## Bug
 
-The repo is configured close to the v7 docs baseline:
-
-- `entities` points to compiled JS (`./dist/models/tasks/model.js`)
-- `entitiesTs` points to TS source (`./src/models/tasks/model.ts`)
-- `preferTs: true` is enabled for direct TS execution
-- `moduleResolution: "bundler"`
-- `declaration: true`
-
-## Install
-
-### Bun
-
-```bash
-bun install
-```
-
-### npm
-
-```bash
-npm install
-```
-
-### pnpm
-
-```bash
-pnpm install
-```
-
-## Reproduce
-
-### Bun direct TypeScript execution
-
-```bash
-bun run src/app.ts
-```
-
-or
-
-```bash
-bun dev
-```
-
-Expected result with Bun direct execution:
+When an entity inherits an `@Property()` field from a base class and that inherited field does not declare an explicit decorator `type`, metadata discovery can fail with:
 
 ```txt
-Task PATH_SYMBOL = Task
-[discovery] - processing entity Task (Task)
-MetadataError: Source file './Task' not found.
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at TsMorphMetadataProvider.cleanUpTypeTags (.../TsMorphMetadataProvider.js:65:19)
+    at TsMorphMetadataProvider.initPropertyType (.../TsMorphMetadataProvider.js:75:22)
+    at TsMorphMetadataProvider.initProperties (.../TsMorphMetadataProvider.js:42:12)
 ```
 
-### npm / pnpm via tsx
+## Trigger shape
 
-```bash
-npm run start
+```ts
+// src/models/base/model.ts
+@Property()
+private createBy!: string;
 ```
 
-```bash
-pnpm start
+```ts
+// src/models/tasks/model.ts
+export class Task extends BaseEntity<Task> {}
 ```
 
-### Bun using the same package script path
+## Why this seems to happen
 
-```bash
-bun run start
-```
+`meta.properties` includes inherited properties, but `readTypeFromSource()` only looks up the property on the subclass declaration via `source.getClass(meta.className).getInstanceProperties()`. When the inherited property is not found there, fallback type resolution can stay `undefined`, and `cleanUpTypeTags()` crashes on `type.replace(...)`.
 
-If you want Bun's direct TS runtime specifically, use `bun run src/app.ts` or `bun run dev:bun`.
+## Expected behavior
 
-Expected result with `tsx` (`npm`/`pnpm`/`bun run start`):
+MikroORM should either:
 
-```txt
-Task PATH_SYMBOL = file:///.../src/models/tasks/model.ts
-[discovery] - processing entity Task (file:///.../src/models/tasks/model.ts)
-[discovery] - entity discovery finished, found 1 entities
-```
-
-## What this shows
-
-- `npm` and `pnpm` can install and run this repository successfully via `tsx`
-- `bun run src/app.ts` reproduces the path detection failure
-- The difference is the runtime/stack format, not the dependency graph or package manager
-
-No database connection is required to hit the failure. Discovery crashes before connect.
+1. resolve the property from the parent class hierarchy, or
+2. throw a clear `MetadataError` for the unresolved property.
