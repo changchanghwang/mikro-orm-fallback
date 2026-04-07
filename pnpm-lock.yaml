@@ -9,17 +9,17 @@ importers:
   .:
     dependencies:
       '@mikro-orm/core':
-        specifier: ^7.0.5
-        version: 7.0.5
+        specifier: ^7.0.6
+        version: 7.0.6
       '@mikro-orm/decorators':
         specifier: ^7.0.5
-        version: 7.0.5(@mikro-orm/core@7.0.5)
+        version: 7.0.5(@mikro-orm/core@7.0.6)
       '@mikro-orm/mysql':
         specifier: ^7.0.5
-        version: 7.0.5(@mikro-orm/core@7.0.5)(@types/node@25.5.0)
+        version: 7.0.5(@mikro-orm/core@7.0.6)(@types/node@25.5.0)
       '@mikro-orm/reflection':
         specifier: ^7.0.5
-        version: 7.0.5(@mikro-orm/core@7.0.5)
+        version: 7.0.5(@mikro-orm/core@7.0.6)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -189,8 +189,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@mikro-orm/core@7.0.5':
-    resolution: {integrity: sha512-ZoFpL7o4PbWYoDlVodiuU86RjAxuwsEA4N/n7eXE4irmqjJjMBdexoj/h6Knt9rBC56cBwyKX4Uahek36bxjpQ==}
+  '@mikro-orm/core@7.0.6':
+    resolution: {integrity: sha512-f5j6ymtL2w2SlV8NRr72otF5FeZQl7g22VyUxwI7ts+VrP4jfOTt6zzoCUX3R/uf1XXriPiIcCc8v9KLuozuSA==}
     engines: {node: '>= 22.17.0'}
     peerDependencies:
       dataloader: 2.2.3
@@ -435,30 +435,30 @@ snapshots:
   '@esbuild/win32-x64@0.27.4':
     optional: true
 
-  '@mikro-orm/core@7.0.5': {}
+  '@mikro-orm/core@7.0.6': {}
 
-  '@mikro-orm/decorators@7.0.5(@mikro-orm/core@7.0.5)':
+  '@mikro-orm/decorators@7.0.5(@mikro-orm/core@7.0.6)':
     dependencies:
-      '@mikro-orm/core': 7.0.5
+      '@mikro-orm/core': 7.0.6
 
-  '@mikro-orm/mysql@7.0.5(@mikro-orm/core@7.0.5)(@types/node@25.5.0)':
+  '@mikro-orm/mysql@7.0.5(@mikro-orm/core@7.0.6)(@types/node@25.5.0)':
     dependencies:
-      '@mikro-orm/core': 7.0.5
-      '@mikro-orm/sql': 7.0.5(@mikro-orm/core@7.0.5)
+      '@mikro-orm/core': 7.0.6
+      '@mikro-orm/sql': 7.0.5(@mikro-orm/core@7.0.6)
       kysely: 0.28.14
       mysql2: 3.20.0(@types/node@25.5.0)
       sqlstring: 2.3.3
     transitivePeerDependencies:
       - '@types/node'
 
-  '@mikro-orm/reflection@7.0.5(@mikro-orm/core@7.0.5)':
+  '@mikro-orm/reflection@7.0.5(@mikro-orm/core@7.0.6)':
     dependencies:
-      '@mikro-orm/core': 7.0.5
+      '@mikro-orm/core': 7.0.6
       ts-morph: 27.0.2
 
-  '@mikro-orm/sql@7.0.5(@mikro-orm/core@7.0.5)':
+  '@mikro-orm/sql@7.0.5(@mikro-orm/core@7.0.6)':
     dependencies:
-      '@mikro-orm/core': 7.0.5
+      '@mikro-orm/core': 7.0.6
       kysely: 0.28.14
 
   '@ts-morph/common@0.28.1':
